@@ -8,6 +8,7 @@ public class BlackJack {
     static final int STARTING_WALLET = 500;
     static final int MIN_BET = 5;
     static final int NUM_SUITS = 4;
+
     static final String HEARTS = "H";
     static final String CLUBS = "C";
     static final String SPADES = "S";
@@ -47,7 +48,16 @@ public class BlackJack {
     }
     /* returns amount player won, negative value if they lost */
     private static boolean promptPlayAgain() {
-        return false;
+        boolean validAnswer = false;
+        while(!validAnswer){
+            System.out.print("Play Again? Yes or No?: ");
+            String answer = in.nextLine().toLowerCase();
+            if(answer.equals("yes") || answer.equals("y"))
+                return true;
+            else if(answer.equals("no") || answer.equals("n"))
+                return false;
+        }
+        return true;
     }
 
     private static int playHand(String playerHand, String dealerHand, int bet) {
@@ -105,6 +115,7 @@ public class BlackJack {
                 System.out.println("Invalid Input");
             }
         }
+
         return bet;
     }
 }
