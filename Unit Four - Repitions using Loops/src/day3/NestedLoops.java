@@ -7,10 +7,8 @@ public class NestedLoops {
 
     public static void main(String[] args) {
         //box(6,5);
-        framingSquares(1,1,1,1);
+        framingSquares(3,4,1,2);
     }
-
-    /* */
     
     private static void framingSquares(int m, int n, int p, int q) {
         // top frame
@@ -55,7 +53,6 @@ public class NestedLoops {
             System.out.println();
         }
 
-
         // bottom matting
         for(int j = 0; j < p; j++){
             for(int i = 0; i < q; i++){
@@ -70,8 +67,6 @@ public class NestedLoops {
             System.out.println();
         }        
 
-
-
         // bottom frame
         for(int j = 0; j < q; j++){
             for(int i = 0; i < 2*q + 2*p + n; i++){
@@ -80,7 +75,6 @@ public class NestedLoops {
             System.out.println();
         }
     }
-
 
 
 
