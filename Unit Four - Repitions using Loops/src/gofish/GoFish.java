@@ -192,7 +192,8 @@ public class GoFish {
             if(tenToZero(comp2Hand).indexOf(wantedCard) >= 0){
                playerHand = tenToZero(playerHand);
                comp2Hand = tenToZero(comp2Hand);
-               playerHand += " " + comp2Hand.substring(comp2Hand.indexOf(wantedCard), comp2Hand.indexOf(wantedCard)+2);
+               playerHand += comp2Hand.substring(comp2Hand.indexOf(wantedCard), comp2Hand.indexOf(wantedCard)+2);
+               System.out.println("help " + comp2Hand);
                comp2Hand = removeWantedCard(comp2Hand, wantedCard);
                playerHand = zeroToTen(playerHand);
                comp2Hand = zeroToTen(comp2Hand);
@@ -203,7 +204,7 @@ public class GoFish {
             if(tenToZero(comp3Hand).indexOf(wantedCard) >= 0){
                playerHand = tenToZero(playerHand);
                comp3Hand = tenToZero(comp3Hand);
-               playerHand += " " + comp3Hand.substring(comp3Hand.indexOf(wantedCard), comp3Hand.indexOf(wantedCard)+2);
+               playerHand += comp3Hand.substring(comp3Hand.indexOf(wantedCard), comp3Hand.indexOf(wantedCard)+2);
                comp3Hand = removeWantedCard(comp3Hand, wantedCard);
                playerHand = zeroToTen(playerHand);
                comp3Hand = zeroToTen(comp3Hand);
@@ -307,14 +308,20 @@ public class GoFish {
                goFish();
          }
       }
+      playerHand = checkPairs(playerHand, player1Points);
+      comp1Hand = checkPairs(comp1Hand, player2Points);
+      comp2Hand = checkPairs(comp2Hand, player3Points);
+      comp3Hand = checkPairs(comp3Hand, player4Points);
    }
 
    private static void goFish() {
       System.out.println("Go Fish!");
       System.out.println("Please take a card from the deck\n");
-      if(currentPlayer == 0) // human player is currentPlayer, human player is asker player
+      if(currentPlayer == 0){ // human player is currentPlayer, human player is asker player
+         // System.out.println("sdfgh " + playerHand + "len " + playerHand.length());
          playerHand += getCard();
-      else if(currentPlayer == 1) // asker player is comp 1
+         // System.out.println("adfsd " + playerHand + "len " + playerHand.length());
+      }else if(currentPlayer == 1) // asker player is comp 1
          comp1Hand += getCard();
       else if(currentPlayer == 2) // asker player is comp 2
          comp2Hand += getCard();
@@ -408,12 +415,12 @@ public class GoFish {
       // remove wantedCard from askedPlayer
       int ind = hand.indexOf(wantedCard);
       if(ind == 0){
-         hand = hand.substring(ind, hand.length());
+         hand = hand.substring(ind + 3, hand.length());
       }else if(ind >= hand.length()-2){
          hand = hand.substring(0, ind);
       }else
-         comp1Hand = comp1Hand.substring(0, ind) + comp1Hand.substring(ind+3,comp1Hand.length());
-      return comp1Hand;
+         hand = hand.substring(0, ind) + hand.substring(ind+3,hand.length());
+      return hand;
 
    //    if(i == 0 && j == 12)
    //       hand = hand.substring(i+3, j);
@@ -446,6 +453,9 @@ public class GoFish {
             hand = hand.substring(0,i) + hand.substring(i+1, hand.length());
          }
       }
+      if((!hand.substring(hand.length()-1).equals(" ")) && (hand.length() != 1)){
+         hand += " ";
+      }
       return hand;
    }
 
@@ -455,6 +465,10 @@ public class GoFish {
             hand = hand.substring(0, i) + "1" + hand.substring(i, hand.length());
             i++;
          }
+      }
+      for (int i = 0; i < hand.length()-2; i++) {
+         if(hand.substring(i, i+2).equals("  "))
+            hand = hand.substring(0, i) + hand.substring(i+1);
       }
       return hand;
    }
