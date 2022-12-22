@@ -32,49 +32,36 @@ public class GoFish {
       boolean isPlaying = true;
 
       while(isPlaying){
-         // System.out.println("CP2:init hand");
          displayHands(true);
          System.out.println("\nChecking all players hands for pairs...\n");
          playerHand = checkPairs(playerHand, player1Points);
          playerHand = checkPairs(playerHand, player1Points);
          currentPlayer = (currentPlayer + 1) % 4;
-         //System.out.println("CP2a: check p1");
          comp1Hand = checkPairs(comp1Hand, player2Points);
          comp1Hand = checkPairs(comp1Hand, player2Points);
          currentPlayer = (currentPlayer + 1) % 4;
-         //displayHands(false);
-         //System.out.println("CP2a: check p2");
          comp2Hand = checkPairs(comp2Hand, player3Points);
          comp2Hand = checkPairs(comp2Hand, player3Points);
          currentPlayer = (currentPlayer + 1) % 4;
-         //displayHands(false);
-         //System.out.println("CP2a: check p3");
          comp3Hand = checkPairs(comp3Hand, player4Points);
          comp3Hand = checkPairs(comp3Hand, player4Points);
          currentPlayer = (currentPlayer + 1) % 4;
-         //displayHands(false);
-         // System.out.println("CP2a: check p4");
          displayHands(true);
 
-         //System.out.println("CP1");
          System.out.println("\nPlayer 1's turn!");
          playerAskPlayer(currentPlayer); // real player picks computer player they want to ask
          displayHands(true);
          currentPlayer = (currentPlayer + 1) % 4;
          System.out.println("\nPlayer 2's turn!");
          compPlayerAskPlayer(currentPlayer);
-         // displayHands(true);
          currentPlayer = (currentPlayer + 1) % 4;
          System.out.println("\nPlayer 3's turn!");
          compPlayerAskPlayer(currentPlayer);
-         // displayHands(true);
          currentPlayer = (currentPlayer + 1) % 4;
          System.out.println("\nPlayer 4's turn!");
          compPlayerAskPlayer(currentPlayer);
-         // displayHands(true);
          currentPlayer = (currentPlayer + 1) % 4;
 
-         // System.out.println("t/f points: " + (player1Points == 3 || player2Points == 3 || player3Points == 3 || player4Points == 3));
          if (player1Points == 10 || player2Points == 10 || player3Points == 10 || player4Points == 10) {
             isPlaying = false;
             System.out.println("\nGAME OVER");
@@ -119,6 +106,10 @@ public class GoFish {
          System.out.println("Player 3: " + comp2Hand);
          System.out.println("Player 4: " + comp3Hand);
       }
+      System.out.println("Player 1 points: " + player1Points);
+      System.out.println("Player 2 points: " + player2Points);
+      System.out.println("Player 3 points: " + player3Points);
+      System.out.println("Player 4 points: " + player4Points);
    }
 
    private static boolean playAgain() {
@@ -147,7 +138,6 @@ public class GoFish {
             System.out.println("Answer [Y]es or [N]o");
             yass = true;
          }
-         //yass = false;
       }
       return isPlaying;
    }
@@ -158,12 +148,10 @@ public class GoFish {
       // returned is selected computer player by real player
       boolean validPlayer = false;
       String askedPlayer = "";
-      // System.out.println(validPlayer);
       while(!validPlayer){
          System.out.println("Who do you want to ask?");
          System.out.print("player 2, 3, or 4?: ");
          askedPlayer = in.nextLine();
-         // System.out.println(askedPlayer.equals("2") || askedPlayer.equals("3") || askedPlayer.equals("4"));
          if(askedPlayer.equals("2") || askedPlayer.equals("3") || askedPlayer.equals("4")){
             validPlayer = true;
          }else{
@@ -174,13 +162,10 @@ public class GoFish {
          boolean askerHasCard = false;
          System.out.print("What card do you want? ");
          String wantedCard = in.nextLine().toUpperCase();
-         //System.out.println("wanted" + wantedCard);
          askerHasCard = checkAskerHasCard(wantedCard);
-         //System.out.println("has?" + askerHasCard);
          if(askerHasCard){
             checkHasCard(wantedCard, askedPlayer);
             playerHand = checkPairs(playerHand, player1Points);
-            // System.out.println("askedPlayer has card");
             validPlayer = false;
             playerHand = checkEmptyHand(playerHand);
          }else{
@@ -190,10 +175,8 @@ public class GoFish {
    }
 
    private static String checkEmptyHand(String hand) {
-      // System.out.println("entered empty");
       if(hand.length() < 2){
          hand = dealCards();
-         // System.out.println("Replenished hand: " + hand);
       }
       return hand;
    }
@@ -214,7 +197,6 @@ public class GoFish {
                playerHand = tenToZero(playerHand);
                comp1Hand = tenToZero(comp1Hand);
                playerHand += comp1Hand.substring(comp1Hand.indexOf(wantedCard), comp1Hand.indexOf(wantedCard)+2);
-               //System.out.println("cp100"+comp1Hand+"  "+wantedCard);
                comp1Hand = removeWantedCard(comp1Hand, wantedCard);
                playerHand = zeroToTen(playerHand);
                comp1Hand = zeroToTen(comp1Hand);
@@ -226,7 +208,6 @@ public class GoFish {
                playerHand = tenToZero(playerHand);
                comp2Hand = tenToZero(comp2Hand);
                playerHand += comp2Hand.substring(comp2Hand.indexOf(wantedCard), comp2Hand.indexOf(wantedCard)+2);
-               // System.out.println("help " + comp2Hand);
                comp2Hand = removeWantedCard(comp2Hand, wantedCard);
                playerHand = zeroToTen(playerHand);
                comp2Hand = zeroToTen(comp2Hand);
@@ -351,9 +332,7 @@ public class GoFish {
       System.out.println("Go Fish!");
       System.out.println("Please take a card from the deck\n");
       if(currentPlayer == 0){ // human player is currentPlayer, human player is asker player
-         // System.out.println("sdfgh " + playerHand + "len " + playerHand.length());
          playerHand += getCard();
-         // System.out.println("adfsd " + playerHand + "len " + playerHand.length());
       }else if(currentPlayer == 1) // asker player is comp 1
          comp1Hand += getCard();
       else if(currentPlayer == 2) // asker player is comp 2
@@ -397,11 +376,7 @@ public class GoFish {
             compAskedPlayer = comp2Hand;
          }
       }
-      // System.out.println("wantedCard: " + wantedCard);
-      // System.out.println("compAskedPlayer: " + compAskedPlayer);
-      // System.out.println("compAsker: " + currentPlayer);
       checkHasCard(wantedCard, compAskedPlayer);
-      // System.out.println("Checkpoint empty");
       comp1Hand = checkEmptyHand(comp1Hand);
       comp2Hand = checkEmptyHand(comp2Hand);
       comp3Hand = checkEmptyHand(comp3Hand);
@@ -430,7 +405,6 @@ public class GoFish {
                else if(i == hand.length()-6)
                   hand = hand.substring(0, i-1);
                else{
-                  // System.out.println("i: " + i + " j: " + j + "hand: " + hand);
                   hand = hand.substring(0,i-1) + hand.substring(i+2, j-1) + hand.substring(j+2, hand.length());
                }
             }
@@ -465,21 +439,20 @@ public class GoFish {
          if(currentPlayer == 3)
             player4Points++;
       }
-      // System.out.println("currentPlayer: " + currentPlayer + "Points: " + player1Points + player2Points + player3Points + player4Points);
    }
 
    private static String tenToZero(String hand) {
-      // System.out.println("before tentozero hand: " + hand);
       for(int i = 0; i < hand.length(); i++){
          String letter = hand.substring(i, i+1);
          if(letter.equals("1")){
             hand = hand.substring(0,i) + hand.substring(i+1, hand.length());
          }
       }
-      if((!hand.substring(hand.length()-1).equals(" ")) && (hand.length() != 1)){
-         hand += " ";
+      if(hand.length() != 0){
+         if((!hand.substring(hand.length()-1).equals(" ")) && (hand.length() != 1)){
+            hand += " ";
+         }
       }
-      // System.out.println("after tentozero hand: " + hand);
       return hand;
    }
 
