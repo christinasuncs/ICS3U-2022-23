@@ -8,7 +8,7 @@ public class AccessingArrays {
         // declares a reference to a primitive int array
         // initialized in one step
         // seen in mostly AP MC
-        int[] arr = {7, 6, 3, 2, 9, 5, 0, 0};
+        int[] arr = {7, 6, 3, 2, 9, 5, 0, 1};
 
         System.out.println(arr[3] + " is at index 3"); 
 
